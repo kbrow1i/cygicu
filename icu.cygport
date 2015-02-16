@@ -1,0 +1,66 @@
+NAME="icu"
+VERSION=51.2
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="IBM Internationalization Components for Unicode"
+DESCRIPTION="ICU is a set of C and C++ libraries that provides robust and full-
+featured Unicode and locale support. The library provides calendar support,
+conversions for many character sets, language sensitive collation, date and
+time formatting, support for many locales, message catalogs and resources,
+message formatting, normalization, number and currency formatting, time zones
+support, transliteration, word, line and sentence breaking, etc."
+HOMEPAGE="http://www.icu-project.org/"
+SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
+SRC_DIR="icu/source"
+
+PATCH_URI="
+	51.1-cygwin-no-w32api.patch
+	51.1-cygwin-tests.patch
+	51.1-cygwin-tools.patch
+	51.1-cygwin-x64.patch
+"
+
+PKG_NAMES="libicu51 libicu-devel icu-doc"
+libicu51_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*51.dll"
+libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
+	usr/include/ usr/lib/ usr/sbin/*.exe usr/share/man/ usr/share/icu/"
+icu_doc_CATEGORY="Doc"
+icu_doc_CONTENTS="usr/share/doc/icu*"
+
+NO_AUTOHEADER=1
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	cd ${B}
+	cygconf
+	cygmake all doc
+}
+
+src_install() {
+	local l
+
+	cd ${B}
+        cyginstall install-doc
+
+	pushd ${D}/usr/lib
+	# fix installation directory
+        mv cygicu*${VERSION%%.*}.dll ${D}/usr/bin/
+	# remove unversioned DLL symlinks
+	rm -f *.dll
+	# create unversioned implib symlinks
+	for l in *.dll.a
+	do
+		dosym ${l} /usr/lib/${l//${VERSION%%.*}}
+	done
+	popd
+
+	sed -e '/^ICUUC_FILE=/ s/libdir/bindir/' \
+		-e 's/l${LIBICU}/l${ICUPREFIX}/g' \
+		-e '/l${ICUPREFIX}/ s/${ICULIBSUFFIX_VERSION}//g' \
+		-i ${D}/usr/bin/icu-config \
+		|| error "sed icu-config failed"
+}
+
+DOCS="../license.html ../readme.html ../unicode-license.txt ../packaging/PACKAGES"
+HTMLDOCS="${B}doc/html"

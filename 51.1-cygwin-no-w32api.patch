@@ -1,0 +1,239 @@
+--- origsrc/icu/source/common/putilimp.h	2013-03-15 17:11:58.000000000 -0500
++++ src/icu/source/common/putilimp.h	2013-04-15 20:09:33.369548500 -0500
+@@ -142,7 +142,7 @@ typedef size_t uintptr_t;
+ 
+ #ifdef U_HAVE_MMAP
+     /* Use the predefined value. */
+-#elif U_PLATFORM_HAS_WIN32_API
++#elif U_PLATFORM_USES_ONLY_WIN32_API
+ #   define U_HAVE_MMAP 0
+ #else
+ #   define U_HAVE_MMAP 1
+@@ -165,7 +165,7 @@ typedef size_t uintptr_t;
+  */
+ #ifdef U_HAVE_DIRENT_H
+     /* Use the predefined value. */
+-#elif U_PLATFORM_HAS_WIN32_API
++#elif U_PLATFORM_USES_ONLY_WIN32_API
+ #   define U_HAVE_DIRENT_H 0
+ #else
+ #   define U_HAVE_DIRENT_H 1
+--- origsrc/icu/source/common/umutex.cpp	2013-03-15 17:11:52.000000000 -0500
++++ src/icu/source/common/umutex.cpp	2013-04-15 20:10:42.409643800 -0500
+@@ -27,7 +27,7 @@
+  * platform independent set of mutex operations.  For internal ICU use only.
+  */
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+     /* Prefer native Windows APIs even if POSIX is implemented (i.e., on Cygwin). */
+ #   undef POSIX
+ #elif U_PLATFORM_IMPLEMENTS_POSIX
+@@ -40,7 +40,7 @@
+ # include <pthread.h> /* must be first, so that we get the multithread versions of things. */
+ #endif /* POSIX */
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ # define WIN32_LEAN_AND_MEAN
+ # define VC_EXTRALEAN
+ # define NOUSER
+@@ -53,7 +53,7 @@
+ #include "umutex.h"
+ #include "cmemory.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ #define SYNC_COMPARE_AND_SWAP(dest, oldval, newval) \
+             InterlockedCompareExchangePointer(dest, newval, oldval)
+ 
+@@ -205,7 +205,7 @@ umtx_unlock(UMutex* mutex)
+     }
+ }
+ 
+-#elif U_PLATFORM_HAS_WIN32_API
++#elif U_PLATFORM_USES_ONLY_WIN32_API
+ //
+ // Windows implementation of UMutex.
+ //
+@@ -386,7 +386,7 @@ umtx_atomic_inc(int32_t *p)  {
+     if (pIncFn) {
+         retVal = (*pIncFn)(gIncDecContext, p);
+     } else {
+-        #if U_PLATFORM_HAS_WIN32_API
++        #if U_PLATFORM_USES_ONLY_WIN32_API
+             retVal = InterlockedIncrement((LONG*)p);
+         #elif defined(USE_MAC_OS_ATOMIC_INCREMENT)
+             retVal = OSAtomicIncrement32Barrier(p);
+@@ -410,7 +410,7 @@ umtx_atomic_dec(int32_t *p) {
+     if (pDecFn) {
+         retVal = (*pDecFn)(gIncDecContext, p);
+     } else {
+-        #if U_PLATFORM_HAS_WIN32_API
++        #if U_PLATFORM_USES_ONLY_WIN32_API
+             retVal = InterlockedDecrement((LONG*)p);
+         #elif defined(USE_MAC_OS_ATOMIC_INCREMENT)
+             retVal = OSAtomicDecrement32Barrier(p);
+--- origsrc/icu/source/common/umutex.h	2013-03-15 17:11:44.000000000 -0500
++++ src/icu/source/common/umutex.h	2013-04-15 20:11:03.859673400 -0500
+@@ -28,7 +28,7 @@
+ #endif
+ 
+ /* For CRITICAL_SECTION */
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ #if 0  
+ /* TODO(andy): Why doesn't windows.h compile in all files? It does in some.
+  *             The intent was to include windows.h here, and have struct UMutex
+@@ -149,7 +149,7 @@
+  */
+ 
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ /*  U_INIT_ONCE mimics the windows API INIT_ONCE, which exists on Windows Vista and newer.
+  *  When ICU no longer needs to support older Windows platforms (XP) that do not have
+@@ -196,7 +196,7 @@ struct UMutex {
+ 
+ #endif
+ 
+-#if (U_PLATFORM != U_PF_CYGWIN && U_PLATFORM != U_PF_MINGW) || defined(CYGWINMSVC)
++#if (U_PLATFORM != U_PF_MINGW) || defined(CYGWINMSVC)
+ typedef struct UMutex UMutex;
+ #endif
+     
+--- origsrc/icu/source/common/wintz.c	2013-03-15 17:11:48.000000000 -0500
++++ src/icu/source/common/wintz.c	2013-04-15 20:11:43.849728600 -0500
+@@ -11,7 +11,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #include "wintz.h"
+ #include "cmemory.h"
+@@ -368,4 +368,4 @@ uprv_detectWindowsTimeZone() {
+     return icuid;
+ }
+ 
+-#endif /* U_PLATFORM_HAS_WIN32_API */
++#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
+--- origsrc/icu/source/common/wintz.h	2013-03-15 17:11:48.000000000 -0500
++++ src/icu/source/common/wintz.h	2013-04-15 20:12:11.379766600 -0500
+@@ -14,7 +14,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ /**
+  * \file 
+@@ -29,6 +29,6 @@ U_CDECL_END
+ U_CFUNC const char* U_EXPORT2
+ uprv_detectWindowsTimeZone();
+ 
+-#endif /* U_PLATFORM_HAS_WIN32_API */
++#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
+ 
+ #endif /* __WINTZ */
+--- origsrc/icu/source/i18n/datefmt.cpp	2013-03-15 17:11:24.000000000 -0500
++++ src/icu/source/i18n/datefmt.cpp	2013-04-15 20:12:38.679804300 -0500
+@@ -349,7 +349,7 @@ DateFormat* U_EXPORT2
+ DateFormat::create(EStyle timeStyle, EStyle dateStyle, const Locale& locale)
+ {
+     UErrorCode status = U_ZERO_ERROR;
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+     char buffer[8];
+     int32_t count = locale.getKeywordValue("compat", buffer, sizeof(buffer), status);
+ 
+--- origsrc/icu/source/i18n/windtfmt.cpp	2013-03-15 17:11:26.000000000 -0500
++++ src/icu/source/i18n/windtfmt.cpp	2013-04-15 20:12:55.679827700 -0500
+@@ -11,7 +11,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #if !UCONFIG_NO_FORMATTING
+ 
+@@ -317,5 +317,5 @@ U_NAMESPACE_END
+ 
+ #endif /* #if !UCONFIG_NO_FORMATTING */
+ 
+-#endif // U_PLATFORM_HAS_WIN32_API
++#endif // U_PLATFORM_USES_ONLY_WIN32_API
+ 
+--- origsrc/icu/source/i18n/windtfmt.h	2013-03-15 17:11:24.000000000 -0500
++++ src/icu/source/i18n/windtfmt.h	2013-04-15 20:13:04.679840100 -0500
+@@ -14,7 +14,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #if !UCONFIG_NO_FORMATTING
+ 
+@@ -135,6 +135,6 @@ U_NAMESPACE_END
+ 
+ #endif /* #if !UCONFIG_NO_FORMATTING */
+ 
+-#endif // U_PLATFORM_HAS_WIN32_API
++#endif // U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #endif // __WINDTFMT
+--- origsrc/icu/source/i18n/wintzimpl.cpp	2013-03-15 17:11:26.000000000 -0500
++++ src/icu/source/i18n/wintzimpl.cpp	2013-04-15 20:13:10.239847800 -0500
+@@ -11,7 +11,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #include "wintzimpl.h"
+ 
+--- origsrc/icu/source/i18n/wintzimpl.h	2013-03-15 17:11:24.000000000 -0500
++++ src/icu/source/i18n/wintzimpl.h	2013-04-15 20:13:22.069864100 -0500
+@@ -14,7 +14,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ /**
+  * \file 
+  * \brief C API: Utilities for dealing w/ Windows time zones.
+@@ -32,6 +32,6 @@ U_CAPI UBool U_EXPORT2
+ uprv_getWindowsTimeZoneInfo(TIME_ZONE_INFORMATION *zoneInfo, const UChar *icuid, int32_t length);
+ 
+ 
+-#endif /* U_PLATFORM_HAS_WIN32_API */
++#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
+ 
+ #endif /* __WINTZIMPL */
+--- origsrc/icu/source/tools/ctestfw/unicode/utimer.h	2013-03-15 17:11:58.000000000 -0500
++++ src/icu/source/tools/ctestfw/unicode/utimer.h	2013-04-15 20:15:47.140064300 -0500
+@@ -10,7 +10,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ #   define VC_EXTRALEAN
+ #   define WIN32_LEAN_AND_MEAN
+ #   include <windows.h>
+@@ -160,7 +160,7 @@ typedef struct UTimer UTimer;
+ typedef void FuntionToBeTimed(void* param);
+ 
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+     struct UTimer{
+         LARGE_INTEGER start;
