@@ -1,31 +1,32 @@
 NAME="icu"
-VERSION=51.2
+VERSION=54.1
 RELEASE=1
 CATEGORY="Libs"
+HOMEPAGE="http://site.icu-project.org/"
+
 SUMMARY="IBM Internationalization Components for Unicode"
-DESCRIPTION="ICU is a set of C and C++ libraries that provides robust and full-
-featured Unicode and locale support. The library provides calendar support,
-conversions for many character sets, language sensitive collation, date and
-time formatting, support for many locales, message catalogs and resources,
-message formatting, normalization, number and currency formatting, time zones
-support, transliteration, word, line and sentence breaking, etc."
-HOMEPAGE="http://www.icu-project.org/"
+DESCRIPTION="ICU is a mature, widely used set of C/C++ and Java libraries providing
+Unicode and Globalization support for software applications.  ICU is
+widely portable and gives applications the same results on all
+platforms and between C/C++ and Java software."
+
 SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
 SRC_DIR="icu/source"
 
 PATCH_URI="
-	51.1-cygwin-no-w32api.patch
-	51.1-cygwin-tests.patch
-	51.1-cygwin-tools.patch
-	51.1-cygwin-x64.patch
+http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-54.1-PATCHES/patch-16-putil?revision=35191&view=co
+http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-54.1-PATCHES/patch-17-cygwin-no-w32api?revision=35191&view=co
+54.1-implicit_declaration.patch
 "
 
-PKG_NAMES="libicu51 libicu-devel icu-doc"
-libicu51_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*51.dll"
+PKG_NAMES="libicu54 libicu-devel icu-doc"
+libicu54_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*54.dll"
 libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
 	usr/include/ usr/lib/ usr/sbin/*.exe usr/share/man/ usr/share/icu/"
 icu_doc_CATEGORY="Doc"
 icu_doc_CONTENTS="usr/share/doc/icu*"
+
+DEPEND="doxygen"
 
 NO_AUTOHEADER=1
 
@@ -62,5 +63,5 @@ src_install() {
 		|| error "sed icu-config failed"
 }
 
-DOCS="../license.html ../readme.html ../unicode-license.txt ../packaging/PACKAGES"
-HTMLDOCS="${B}doc/html"
+DOCS="../APIChangeReport.html ../license.html ../readme.html icu4c.css ../packaging/PACKAGES"
+HTMLDOCS="${B}/doc/html"
