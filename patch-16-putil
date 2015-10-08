@@ -1,6 +1,6 @@
-diff -ur -N -x config.guess -x config.sub -x install-sh icu-55.1.orig/source/common/putil.cpp icu-55.1/source/common/putil.cpp
---- icu-55.1.orig/source/common/putil.cpp	2015-03-18 19:40:00.000000000 +0100
-+++ icu-55.1/source/common/putil.cpp	2015-03-19 09:29:07.000000000 +0100
+diff -ur -N -x config.guess -x config.sub -x install-sh icu-56.1.orig/source/common/putil.cpp icu-56.1/source/common/putil.cpp
+--- icu-56.1.orig/source/common/putil.cpp	2015-09-24 00:32:32.000000000 +0200
++++ icu-56.1/source/common/putil.cpp	2015-09-27 15:29:05.000000000 +0200
 @@ -41,6 +41,20 @@
  // Must be before any other #includes.
  #include "uposixdefs.h"

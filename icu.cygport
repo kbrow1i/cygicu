@@ -1,5 +1,5 @@
 NAME="icu"
-VERSION=55.1
+VERSION=56.1
 RELEASE=1
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
@@ -14,20 +14,19 @@ SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION/
 # SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/_rc}-src.tgz"
 SRC_DIR="icu/source"
 
-PATCH_URI="
-http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-55.1-PATCHES/patch-16-putil?revision=36559&view=co
-http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-55.1-PATCHES/patch-17-cygwin-no-w32api?revision=36559&view=co
-54.1-implicit_declaration.patch
-"
+TL_SVN_REV=38475
+PATCH_URI="http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-${VERSION}-PATCHES/patch-16-putil?revision=${TL_SVN_REV}&view=co"
+PATCH_URI+=" http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-${VERSION}-PATCHES/patch-17-cygwin-no-w32api?revision=${TL_SVN_REV}&view=co"
+PATCH_URI+=" 54.1-implicit_declaration.patch"
 
-PKG_NAMES="libicu55 libicu-devel icu-doc"
-libicu55_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*55.dll"
+PKG_NAMES="libicu56 libicu-devel icu-doc"
+libicu56_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*56.dll"
 libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
 	usr/include/ usr/lib/ usr/sbin/*.exe usr/share/man/ usr/share/icu/"
 icu_doc_CATEGORY="Doc"
 icu_doc_CONTENTS="usr/share/doc/icu*"
 
-DEPEND="doxygen"
+DEPEND="doxygen gettext-devel pkg-config"
 
 NO_AUTOHEADER=1
 

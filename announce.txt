@@ -1,10 +1,10 @@
 The following packages have been updated in the Cygwin distribution:
 
-* libicu55-55.1-1
-* libicu-devel-55.1-1
-* icu-doc-55.1-1
+* libicu56-56.1-1
+* libicu-devel-56.1-1
+* icu-doc-56.1-1
 
-libicu54 is now obsolete.  Package maintainers, please rebuild any packages that depend on it when you get a chance.
+libicu55 is now obsolete.  Package maintainers, please rebuild any packages that depend on it when you get a chance.
 
 ICU is a mature, widely used set of C/C++ and Java libraries providing Unicode and Globalization support for software applications.  ICU is widely portable and gives applications the same results on all platforms and between C/C++ and Java software.
 
