@@ -1,6 +1,6 @@
---- source/common/putilimp.h	(revision 40154)
-+++ source/common/putilimp.h	(working copy)
-@@ -148,7 +148,7 @@
+--- origsrc/icu/source/common/putilimp.h	2016-03-23 16:50:14.000000000 -0400
++++ src/icu/source/common/putilimp.h	2016-03-28 08:27:19.528127100 -0400
+@@ -148,7 +148,7 @@ typedef size_t uintptr_t;
  
  #ifdef U_HAVE_MMAP
      /* Use the predefined value. */
@@ -9,7 +9,7 @@
  #   define U_HAVE_MMAP 0
  #else
  #   define U_HAVE_MMAP 1
-@@ -171,7 +171,7 @@
+@@ -171,7 +171,7 @@ typedef size_t uintptr_t;
   */
  #ifdef U_HAVE_DIRENT_H
      /* Use the predefined value. */
@@ -18,9 +18,9 @@
  #   define U_HAVE_DIRENT_H 0
  #else
  #   define U_HAVE_DIRENT_H 1
---- source/common/umutex.cpp	(revision 40154)
-+++ source/common/umutex.cpp	(working copy)
-@@ -37,7 +37,7 @@
+--- origsrc/icu/source/common/umutex.cpp	2016-03-23 16:50:10.000000000 -0400
++++ src/icu/source/common/umutex.cpp	2016-03-28 08:27:19.528127100 -0400
+@@ -37,7 +37,7 @@ static UMutex   globalMutex = U_MUTEX_IN
  // Build time user mutex hook: #include "U_USER_MUTEX_CPP"
  #include U_MUTEX_XSTR(U_USER_MUTEX_CPP)
  
@@ -29,9 +29,9 @@
  
  //-------------------------------------------------------------------------------------------
  //
---- source/common/umutex.h	(revision 40154)
-+++ source/common/umutex.h	(working copy)
-@@ -74,7 +74,7 @@
+--- origsrc/icu/source/common/umutex.h	2016-03-23 16:50:04.000000000 -0400
++++ src/icu/source/common/umutex.h	2016-03-28 08:27:19.543752700 -0400
+@@ -74,7 +74,7 @@ inline int32_t umtx_atomic_dec(u_atomic_
  }
  U_NAMESPACE_END
  
@@ -40,7 +40,7 @@
  
  // MSVC compiler. Reads and writes of volatile variables have
  //                acquire and release memory semantics, respectively.
-@@ -318,7 +318,7 @@
+@@ -318,7 +318,7 @@ U_NAMESPACE_END
  // #inlcude "U_USER_MUTEX_H"
  #include U_MUTEX_XSTR(U_USER_MUTEX_H)
  
@@ -49,8 +49,8 @@
  
  /* Windows Definitions.
   *    Windows comes first in the platform chain.
---- source/common/wintz.c	(revision 40154)
-+++ source/common/wintz.c	(working copy)
+--- origsrc/icu/source/common/wintz.c	2016-03-23 16:50:06.000000000 -0400
++++ src/icu/source/common/wintz.c	2016-03-28 08:27:19.543752700 -0400
 @@ -11,7 +11,7 @@
  
  #include "unicode/utypes.h"
@@ -60,14 +60,14 @@
  
  #include "wintz.h"
  #include "cmemory.h"
-@@ -436,4 +436,4 @@
+@@ -436,4 +436,4 @@ uprv_detectWindowsTimeZone() {
      return icuid;
  }
  
 -#endif /* U_PLATFORM_HAS_WIN32_API */
 +#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
---- source/common/wintz.h	(revision 40154)
-+++ source/common/wintz.h	(working copy)
+--- origsrc/icu/source/common/wintz.h	2016-03-23 16:50:06.000000000 -0400
++++ src/icu/source/common/wintz.h	2016-03-28 08:27:19.543752700 -0400
 @@ -14,7 +14,7 @@
  
  #include "unicode/utypes.h"
@@ -77,7 +77,7 @@
  
  /**
   * \file 
-@@ -29,6 +29,6 @@
+@@ -29,6 +29,6 @@ U_CDECL_END
  U_CFUNC const char* U_EXPORT2
  uprv_detectWindowsTimeZone();
  
@@ -85,9 +85,9 @@
 +#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
  
  #endif /* __WINTZ */
---- source/i18n/datefmt.cpp	(revision 40154)
-+++ source/i18n/datefmt.cpp	(working copy)
-@@ -496,7 +496,7 @@
+--- origsrc/icu/source/i18n/datefmt.cpp	2016-03-23 16:49:38.000000000 -0400
++++ src/icu/source/i18n/datefmt.cpp	2016-03-28 08:27:19.543752700 -0400
+@@ -496,7 +496,7 @@ DateFormat* U_EXPORT2
  DateFormat::create(EStyle timeStyle, EStyle dateStyle, const Locale& locale)
  {
      UErrorCode status = U_ZERO_ERROR;
@@ -96,8 +96,8 @@
      char buffer[8];
      int32_t count = locale.getKeywordValue("compat", buffer, sizeof(buffer), status);
  
---- source/i18n/windtfmt.cpp	(revision 40154)
-+++ source/i18n/windtfmt.cpp	(working copy)
+--- origsrc/icu/source/i18n/windtfmt.cpp	2016-03-23 16:49:40.000000000 -0400
++++ src/icu/source/i18n/windtfmt.cpp	2016-03-28 08:27:19.543752700 -0400
 @@ -11,7 +11,7 @@
  
  #include "unicode/utypes.h"
@@ -107,15 +107,15 @@
  
  #if !UCONFIG_NO_FORMATTING
  
-@@ -312,5 +312,5 @@
+@@ -312,5 +312,5 @@ U_NAMESPACE_END
  
  #endif /* #if !UCONFIG_NO_FORMATTING */
  
 -#endif // U_PLATFORM_HAS_WIN32_API
 +#endif // U_PLATFORM_USES_ONLY_WIN32_API
  
---- source/i18n/windtfmt.h	(revision 40154)
-+++ source/i18n/windtfmt.h	(working copy)
+--- origsrc/icu/source/i18n/windtfmt.h	2016-03-23 16:49:36.000000000 -0400
++++ src/icu/source/i18n/windtfmt.h	2016-03-28 08:27:19.543752700 -0400
 @@ -14,7 +14,7 @@
  
  #include "unicode/utypes.h"
@@ -125,7 +125,7 @@
  
  #if !UCONFIG_NO_FORMATTING
  
-@@ -131,6 +131,6 @@
+@@ -131,6 +131,6 @@ U_NAMESPACE_END
  
  #endif /* #if !UCONFIG_NO_FORMATTING */
  
@@ -133,8 +133,8 @@
 +#endif // U_PLATFORM_USES_ONLY_WIN32_API
  
  #endif // __WINDTFMT
---- source/i18n/wintzimpl.cpp	(revision 40154)
-+++ source/i18n/wintzimpl.cpp	(working copy)
+--- origsrc/icu/source/i18n/wintzimpl.cpp	2016-03-23 16:49:42.000000000 -0400
++++ src/icu/source/i18n/wintzimpl.cpp	2016-03-28 08:32:52.829880400 -0400
 @@ -11,7 +11,7 @@
  
  #include "unicode/utypes.h"
@@ -143,8 +143,9 @@
 +#if U_PLATFORM_USES_ONLY_WIN32_API && !UCONFIG_NO_FORMATTING 
  
  #include "wintzimpl.h"
---- source/i18n/wintzimpl.h	(revision 40154)
-+++ source/i18n/wintzimpl.h	(working copy)
+ 
+--- origsrc/icu/source/i18n/wintzimpl.h	2016-03-23 16:49:36.000000000 -0400
++++ src/icu/source/i18n/wintzimpl.h	2016-03-28 08:34:18.538279900 -0400
 @@ -14,7 +14,7 @@
  
  #include "unicode/utypes.h"
@@ -154,7 +155,7 @@
  /**
   * \file 
   * \brief C API: Utilities for dealing w/ Windows time zones.
-@@ -32,6 +32,6 @@
+@@ -32,6 +32,6 @@ U_CAPI UBool U_EXPORT2
  uprv_getWindowsTimeZoneInfo(TIME_ZONE_INFORMATION *zoneInfo, const UChar *icuid, int32_t length);
  
  
@@ -162,10 +163,8 @@
 +#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
  
  #endif /* __WINTZIMPL */
-Index: source/test/intltest/dtfmttst.cpp
-===================================================================
---- source/test/intltest/dtfmttst.cpp	(revision 40154)
-+++ source/test/intltest/dtfmttst.cpp	(working copy)
+--- origsrc/icu/source/test/intltest/dtfmttst.cpp	2016-03-23 16:48:42.000000000 -0400
++++ src/icu/source/test/intltest/dtfmttst.cpp	2016-03-28 08:27:19.559378400 -0400
 @@ -23,7 +23,7 @@
  #include "caltest.h"  // for fieldName
  #include <stdio.h> // for sprintf
@@ -175,7 +174,7 @@ Index: source/test/intltest/dtfmttst.cpp
  #include "windttst.h"
  #endif
  
-@@ -2372,7 +2372,7 @@
+@@ -2372,7 +2372,7 @@ void DateFormatTest::TestZTimeZoneParsin
  
  void DateFormatTest::TestHost(void)
  {
@@ -184,18 +183,16 @@ Index: source/test/intltest/dtfmttst.cpp
      Win32DateTimeTest::testLocales(this);
  #endif
  }
-Index: source/test/intltest/uobjtest.cpp
-===================================================================
---- source/test/intltest/uobjtest.cpp	(revision 40154)
-+++ source/test/intltest/uobjtest.cpp	(working copy)
-@@ -382,13 +382,11 @@
+--- origsrc/icu/source/test/intltest/uobjtest.cpp	2016-03-23 16:48:44.000000000 -0400
++++ src/icu/source/test/intltest/uobjtest.cpp	2016-03-28 08:27:19.559378400 -0400
+@@ -382,13 +382,11 @@ void UObjectTest::testIDs()
      TESTCLASSID_FACTORY(IndianCalendar, Calendar::createInstance(Locale("@calendar=indian"), status));
      TESTCLASSID_FACTORY(ChineseCalendar, Calendar::createInstance(Locale("@calendar=chinese"), status));
      TESTCLASSID_FACTORY(TaiwanCalendar, Calendar::createInstance(Locale("@calendar=roc"), status));
 -#if U_PLATFORM_HAS_WIN32_API
-+#if U_PLATFORM_USES_ONLY_WIN32_API
-     TESTCLASSID_FACTORY(Win32DateFormat, DateFormat::createDateInstance(DateFormat::kFull, Locale("@compat=host")));
--#if U_PLATFORM_USES_ONLY_WIN32_API
+-    TESTCLASSID_FACTORY(Win32DateFormat, DateFormat::createDateInstance(DateFormat::kFull, Locale("@compat=host")));
+ #if U_PLATFORM_USES_ONLY_WIN32_API
++    TESTCLASSID_FACTORY(Win32DateFormat, DateFormat::createDateInstance(DateFormat::kFull, Locale("@compat=host")));
      TESTCLASSID_FACTORY(Win32NumberFormat, NumberFormat::createInstance(Locale("@compat=host"), status));
  #endif
  #endif
@@ -203,10 +200,8 @@ Index: source/test/intltest/uobjtest.cpp
  
  #if !UCONFIG_NO_BREAK_ITERATION && !UCONFIG_NO_FILE_IO
      /* TESTCLASSID_ABSTRACT(BreakIterator); No staticID!  */
-Index: source/test/intltest/windttst.cpp
-===================================================================
---- source/test/intltest/windttst.cpp	(revision 40154)
-+++ source/test/intltest/windttst.cpp	(working copy)
+--- origsrc/icu/source/test/intltest/windttst.cpp	2016-03-23 16:48:44.000000000 -0400
++++ src/icu/source/test/intltest/windttst.cpp	2016-03-28 08:27:19.559378400 -0400
 @@ -11,7 +11,7 @@
  
  #include "unicode/utypes.h"
@@ -216,16 +211,14 @@ Index: source/test/intltest/windttst.cpp
  
  #if !UCONFIG_NO_FORMATTING
  
-@@ -191,4 +191,4 @@
+@@ -191,4 +191,4 @@ void Win32DateTimeTest::testLocales(Test
  
  #endif /* #if !UCONFIG_NO_FORMATTING */
  
 -#endif /* U_PLATFORM_HAS_WIN32_API */
 +#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
-Index: source/test/intltest/windttst.h
-===================================================================
---- source/test/intltest/windttst.h	(revision 40154)
-+++ source/test/intltest/windttst.h	(working copy)
+--- origsrc/icu/source/test/intltest/windttst.h	2016-03-23 16:48:36.000000000 -0400
++++ src/icu/source/test/intltest/windttst.h	2016-03-28 08:27:19.559378400 -0400
 @@ -14,7 +14,7 @@
  
  #include "unicode/utypes.h"
@@ -235,7 +228,7 @@ Index: source/test/intltest/windttst.h
  
  #if !UCONFIG_NO_FORMATTING
  
-@@ -36,6 +36,6 @@
+@@ -36,6 +36,6 @@ private:
  
  #endif /* #if !UCONFIG_NO_FORMATTING */
  
@@ -243,10 +236,8 @@ Index: source/test/intltest/windttst.h
 +#endif // U_PLATFORM_USES_ONLY_WIN32_API
  
  #endif // __WINDTTST
-Index: source/test/intltest/winutil.cpp
-===================================================================
---- source/test/intltest/winutil.cpp	(revision 40154)
-+++ source/test/intltest/winutil.cpp	(working copy)
+--- origsrc/icu/source/test/intltest/winutil.cpp	2016-03-23 16:48:34.000000000 -0400
++++ src/icu/source/test/intltest/winutil.cpp	2016-03-28 08:27:19.559378400 -0400
 @@ -11,7 +11,7 @@
  
  #include "unicode/utypes.h"
@@ -256,16 +247,14 @@ Index: source/test/intltest/winutil.cpp
  
  #if !UCONFIG_NO_FORMATTING
  
-@@ -93,4 +93,4 @@
+@@ -93,4 +93,4 @@ void Win32Utilities::freeLocales(LCIDRec
  
  #endif /* #if !UCONFIG_NO_FORMATTING */
  
 -#endif /* U_PLATFORM_HAS_WIN32_API */
 +#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
-Index: source/test/intltest/winutil.h
-===================================================================
---- source/test/intltest/winutil.h	(revision 40154)
-+++ source/test/intltest/winutil.h	(working copy)
+--- origsrc/icu/source/test/intltest/winutil.h	2016-03-23 16:48:34.000000000 -0400
++++ src/icu/source/test/intltest/winutil.h	2016-03-28 08:27:19.575004600 -0400
 @@ -14,7 +14,7 @@
  
  #include "unicode/utypes.h"
@@ -275,7 +264,7 @@ Index: source/test/intltest/winutil.h
  
  #if !UCONFIG_NO_FORMATTING
  
-@@ -41,6 +41,6 @@
+@@ -41,6 +41,6 @@ private:
  
  #endif /* #if !UCONFIG_NO_FORMATTING */
  
@@ -283,11 +272,9 @@ Index: source/test/intltest/winutil.h
 +#endif // U_PLATFORM_USES_ONLY_WIN32_API
  
  #endif // __WINUTIL
-Index: source/test/perf/collperf/collperf.cpp
-===================================================================
---- source/test/perf/collperf/collperf.cpp	(revision 40154)
-+++ source/test/perf/collperf/collperf.cpp	(working copy)
-@@ -113,7 +113,7 @@
+--- origsrc/icu/source/test/perf/collperf/collperf.cpp	2016-03-23 16:49:04.000000000 -0400
++++ src/icu/source/test/perf/collperf/collperf.cpp	2016-03-28 08:27:19.575004600 -0400
+@@ -113,7 +113,7 @@ public:
              ucol_getSortKey(col, data[i].icu_data, data[i].icu_data_len, icu_key, MAX_KEY_LENGTH);
          }
  
@@ -296,7 +283,7 @@ Index: source/test/perf/collperf/collperf.cpp
          // pre-generated in CollPerfTest::prepareData(), need not to check error here
          void win_key_null(int32_t i){
              //LCMAP_SORTsk             0x00000400  // WC sort sk (normalize)
-@@ -295,7 +295,7 @@
+@@ -295,7 +295,7 @@ struct CmdQsort : public UPerfFunction{
          return strcmp((char *) da->icu_key, (char *) db->icu_key); 
      }
  
@@ -305,7 +292,7 @@ Index: source/test/perf/collperf/collperf.cpp
      static int win_cmp_null(const void *a, const void *b) {
          QCAST();
          //CSTR_LESS_THAN		1
-@@ -330,7 +330,7 @@
+@@ -330,7 +330,7 @@ struct CmdQsort : public UPerfFunction{
  
      QFUNC(posix_strcoll_null, strcoll, posix_data)
          QFUNC(posix_cmpkey, strcmp, posix_key)
@@ -314,7 +301,7 @@ Index: source/test/perf/collperf/collperf.cpp
          QFUNC(win_cmpkey, strcmp, win_key)
          QFUNC(win_wcscmp, wcscmp, win_data)
  #endif
-@@ -450,7 +450,7 @@
+@@ -450,7 +450,7 @@ public:
              return strcmp( (char *) rnd[i].icu_key, (char *) ord[j].icu_key );
          }
  
@@ -323,7 +310,7 @@ Index: source/test/perf/collperf/collperf.cpp
          int win_cmp_null(int32_t i, int32_t j) {
              int t = CompareStringW(win_langid, 0, rnd[i].win_data, -1, ord[j].win_data, -1);
              if (t == 0){
-@@ -587,7 +587,7 @@
+@@ -587,7 +587,7 @@ public:
              locale = "en_US";   // set default locale
          }
  
@@ -332,7 +319,7 @@ Index: source/test/perf/collperf/collperf.cpp
          if (options[i].doesOccur) {
              char *endp;
              int tmp = strtol(options[i].value, &endp, 0);
-@@ -687,7 +687,7 @@
+@@ -687,7 +687,7 @@ public:
          TEST_KEYGEN(TestIcu_KeyGen_null, icu_key_null);
          TEST_KEYGEN(TestIcu_KeyGen_len,  icu_key_len);
          TEST_KEYGEN(TestPosix_KeyGen_null, posix_key_null);
@@ -341,7 +328,7 @@ Index: source/test/perf/collperf/collperf.cpp
          TEST_KEYGEN(TestWin_KeyGen_null, win_key_null);
          TEST_KEYGEN(TestWin_KeyGen_len, win_key_len);
  #endif
-@@ -713,7 +713,7 @@
+@@ -713,7 +713,7 @@ public:
          TEST_QSORT(TestIcu_qsort_usekey, icu_cmpkey);
          TEST_QSORT(TestPosix_qsort_strcoll_null, posix_strcoll_null);
          TEST_QSORT(TestPosix_qsort_usekey, posix_cmpkey);
@@ -350,7 +337,7 @@ Index: source/test/perf/collperf/collperf.cpp
          TEST_QSORT(TestWin_qsort_CompareStringW_null, win_cmp_null);
          TEST_QSORT(TestWin_qsort_CompareStringW_len, win_cmp_len);
          TEST_QSORT(TestWin_qsort_usekey, win_cmpkey);
-@@ -728,7 +728,7 @@
+@@ -728,7 +728,7 @@ public:
          TEST_BIN(TestIcu_BinarySearch_cmpCPO, icu_cmpcpo);
          TEST_BIN(TestPosix_BinarySearch_strcoll_null, posix_strcoll_null);
          TEST_BIN(TestPosix_BinarySearch_usekey, posix_cmpkey);
@@ -359,7 +346,7 @@ Index: source/test/perf/collperf/collperf.cpp
          TEST_BIN(TestWin_BinarySearch_CompareStringW_null, win_cmp_null);
          TEST_BIN(TestWin_BinarySearch_CompareStringW_len, win_cmp_len);
  #endif
-@@ -828,7 +828,7 @@
+@@ -828,7 +828,7 @@ public:
              t = strxfrm(posix_key->last(), posix_data->dataOf(i), s);
              if (t != s) {status = U_INVALID_FORMAT_ERROR;return;}
  
@@ -368,7 +355,7 @@ Index: source/test/perf/collperf/collperf.cpp
              // Win data
              s = icu_data->lengthOf(i) + 1; // plus terminal NULL
              win_data->append_one(s);
-@@ -851,7 +851,7 @@
+@@ -851,7 +851,7 @@ public:
              rnd_index[i].posix_key = posix_key->last();
              rnd_index[i].posix_data = posix_data->dataOf(i);
              rnd_index[i].posix_data_len = posix_data->lengthOf(i);
@@ -377,7 +364,7 @@ Index: source/test/perf/collperf/collperf.cpp
              rnd_index[i].win_key = win_key->dataOf(i);
              rnd_index[i].win_data = win_data->dataOf(i);
              rnd_index[i].win_data_len = win_data->lengthOf(i);
-@@ -870,7 +870,7 @@
+@@ -870,7 +870,7 @@ public:
          SORT(ord_icu_key, icu_cmpkey);
          SORT(ord_posix_data, posix_strcoll_null);
          SORT(ord_posix_key, posix_cmpkey);
@@ -386,11 +373,9 @@ Index: source/test/perf/collperf/collperf.cpp
          SORT(ord_win_data, win_cmp_len);
          SORT(ord_win_key, win_cmpkey);
          SORT(ord_win_wcscmp, win_wcscmp);
-Index: source/test/perf/normperf/normperf.h
-===================================================================
---- source/test/perf/normperf/normperf.h	(revision 40154)
-+++ source/test/perf/normperf/normperf.h	(working copy)
-@@ -315,7 +315,7 @@
+--- origsrc/icu/source/test/perf/normperf/normperf.h	2016-03-23 16:49:00.000000000 -0400
++++ src/icu/source/test/perf/normperf/normperf.h	2016-03-28 08:27:19.575004600 -0400
+@@ -315,7 +315,7 @@ int32_t ICUIsNormalized(const UChar* src
  }
  #endif
  
@@ -399,10 +384,8 @@ Index: source/test/perf/normperf/normperf.h
  
  int32_t WinNormNFD(const UChar* src, int32_t srcLen, UChar* dest, int32_t dstLen, int32_t options, UErrorCode* status) {
      return FoldStringW(MAP_COMPOSITE,src,srcLen,dest,dstLen);
-Index: source/tools/ctestfw/unicode/utimer.h
-===================================================================
---- source/tools/ctestfw/unicode/utimer.h	(revision 40154)
-+++ source/tools/ctestfw/unicode/utimer.h	(working copy)
+--- origsrc/icu/source/tools/ctestfw/unicode/utimer.h	2016-03-23 16:50:16.000000000 -0400
++++ src/icu/source/tools/ctestfw/unicode/utimer.h	2016-03-28 08:27:19.575004600 -0400
 @@ -10,7 +10,7 @@
  
  #include "unicode/utypes.h"
@@ -412,7 +395,7 @@ Index: source/tools/ctestfw/unicode/utimer.h
  #   define VC_EXTRALEAN
  #   define WIN32_LEAN_AND_MEAN
  #   include <windows.h>
-@@ -160,7 +160,7 @@
+@@ -160,7 +160,7 @@ typedef struct UTimer UTimer;
  typedef void FuntionToBeTimed(void* param);
  
  
@@ -421,11 +404,9 @@ Index: source/tools/ctestfw/unicode/utimer.h
  
      struct UTimer{
          LARGE_INTEGER start;
-Index: source/tools/genrb/derb.cpp
-===================================================================
---- source/tools/genrb/derb.cpp	(revision 40154)
-+++ source/tools/genrb/derb.cpp	(working copy)
-@@ -204,7 +204,7 @@
+--- origsrc/icu/source/tools/genrb/derb.cpp	2016-03-23 16:50:20.000000000 -0400
++++ src/icu/source/tools/genrb/derb.cpp	2016-03-28 08:27:19.575004600 -0400
+@@ -204,7 +204,7 @@ main(int argc, char* argv[]) {
          UBool fromICUData = !uprv_strcmp(inputDir, "-");
          if (!fromICUData) {
              UBool absfilename = *arg == U_FILE_SEP_CHAR;
@@ -434,11 +415,9 @@ Index: source/tools/genrb/derb.cpp
              if (!absfilename) {
                  absfilename = (uprv_strlen(arg) > 2 && isalpha(arg[0])
                      && arg[1] == ':' && arg[2] == U_FILE_SEP_CHAR);
-Index: source/tools/toolutil/udbgutil.cpp
-===================================================================
---- source/tools/toolutil/udbgutil.cpp	(revision 40154)
-+++ source/tools/toolutil/udbgutil.cpp	(working copy)
-@@ -348,8 +348,10 @@
+--- origsrc/icu/source/tools/toolutil/udbgutil.cpp	2016-03-23 16:50:28.000000000 -0400
++++ src/icu/source/tools/toolutil/udbgutil.cpp	2016-03-28 08:27:19.575004600 -0400
+@@ -348,8 +348,10 @@ int32_t udbg_enumByName(UDebugEnumType t
   */
  U_CAPI const char *udbg_getPlatform(void)
  {

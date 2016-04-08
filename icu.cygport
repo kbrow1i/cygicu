@@ -1,5 +1,5 @@
 NAME="icu"
-VERSION=56.1
+VERSION=57.1
 RELEASE=1
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
@@ -14,13 +14,14 @@ SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION/
 # SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/_rc}-src.tgz"
 SRC_DIR="icu/source"
 
-TL_SVN_REV=38475
-PATCH_URI="http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-${VERSION}-PATCHES/patch-16-putil?revision=${TL_SVN_REV}&view=co"
-PATCH_URI+=" http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-${VERSION}-PATCHES/patch-17-cygwin-no-w32api?revision=${TL_SVN_REV}&view=co"
+TL_SVN_REV=40155
+PATCH_URI="http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-PATCHES/patch-16-putil?revision=${TL_SVN_REV}&view=co"
+# PATCH_URI+=" http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-PATCHES/patch-17-cygwin-no-w32api?revision=${TL_SVN_REV}&view=co"
+PATCH_URI+=" my-patch-17-cygwin-no-w32api" # Fixed whitespace error.
 PATCH_URI+=" 54.1-implicit_declaration.patch"
 
-PKG_NAMES="libicu56 libicu-devel icu-doc"
-libicu56_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*56.dll"
+PKG_NAMES="libicu57 libicu-devel icu-doc"
+libicu57_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*57.dll"
 libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
 	usr/include/ usr/lib/ usr/sbin/*.exe usr/share/man/ usr/share/icu/"
 icu_doc_CATEGORY="Doc"
