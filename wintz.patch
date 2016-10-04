@@ -1,0 +1,187 @@
+--- origsrc/icu/source/common/wintz.c	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/common/wintz.c	2016-10-04 09:33:58.327228300 -0400
+@@ -13,7 +13,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #include "wintz.h"
+ #include "cmemory.h"
+@@ -438,4 +438,4 @@ uprv_detectWindowsTimeZone() {
+     return icuid;
+ }
+ 
+-#endif /* U_PLATFORM_HAS_WIN32_API */
++#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
+--- origsrc/icu/source/common/wintz.h	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/common/wintz.h	2016-10-04 09:33:58.342834600 -0400
+@@ -16,7 +16,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ /**
+  * \file 
+@@ -31,6 +31,6 @@ U_CDECL_END
+ U_CFUNC const char* U_EXPORT2
+ uprv_detectWindowsTimeZone();
+ 
+-#endif /* U_PLATFORM_HAS_WIN32_API */
++#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
+ 
+ #endif /* __WINTZ */
+--- origsrc/icu/source/i18n/datefmt.cpp	2016-07-23 00:42:29.000000000 -0400
++++ src/icu/source/i18n/datefmt.cpp	2016-10-04 09:33:58.342834600 -0400
+@@ -498,7 +498,7 @@ DateFormat* U_EXPORT2
+ DateFormat::create(EStyle timeStyle, EStyle dateStyle, const Locale& locale)
+ {
+     UErrorCode status = U_ZERO_ERROR;
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+     char buffer[8];
+     int32_t count = locale.getKeywordValue("compat", buffer, sizeof(buffer), status);
+ 
+--- origsrc/icu/source/i18n/windtfmt.cpp	2016-09-13 17:37:40.000000000 -0400
++++ src/icu/source/i18n/windtfmt.cpp	2016-10-04 09:33:58.342834600 -0400
+@@ -13,7 +13,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #if !UCONFIG_NO_FORMATTING
+ 
+@@ -314,5 +314,5 @@ U_NAMESPACE_END
+ 
+ #endif /* #if !UCONFIG_NO_FORMATTING */
+ 
+-#endif // U_PLATFORM_HAS_WIN32_API
++#endif // U_PLATFORM_USES_ONLY_WIN32_API
+ 
+--- origsrc/icu/source/i18n/windtfmt.h	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/i18n/windtfmt.h	2016-10-04 09:33:58.342834600 -0400
+@@ -16,7 +16,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #if !UCONFIG_NO_FORMATTING
+ 
+@@ -133,6 +133,6 @@ U_NAMESPACE_END
+ 
+ #endif /* #if !UCONFIG_NO_FORMATTING */
+ 
+-#endif // U_PLATFORM_HAS_WIN32_API
++#endif // U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #endif // __WINDTFMT
+--- origsrc/icu/source/i18n/wintzimpl.cpp	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/i18n/wintzimpl.cpp	2016-10-04 09:33:58.342834600 -0400
+@@ -13,7 +13,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API && !UCONFIG_NO_FORMATTING 
++#if U_PLATFORM_USES_ONLY_WIN32_API && !UCONFIG_NO_FORMATTING 
+ 
+ #include "wintzimpl.h"
+ 
+--- origsrc/icu/source/i18n/wintzimpl.h	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/i18n/wintzimpl.h	2016-10-04 09:33:58.342834600 -0400
+@@ -16,7 +16,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ /**
+  * \file 
+  * \brief C API: Utilities for dealing w/ Windows time zones.
+@@ -34,6 +34,6 @@ U_CAPI UBool U_EXPORT2
+ uprv_getWindowsTimeZoneInfo(TIME_ZONE_INFORMATION *zoneInfo, const UChar *icuid, int32_t length);
+ 
+ 
+-#endif /* U_PLATFORM_HAS_WIN32_API */
++#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
+ 
+ #endif /* __WINTZIMPL */
+--- origsrc/icu/source/test/intltest/dtfmttst.cpp	2016-09-26 20:23:19.000000000 -0400
++++ src/icu/source/test/intltest/dtfmttst.cpp	2016-10-04 09:33:58.374091100 -0400
+@@ -25,7 +25,7 @@
+ #include "caltest.h"  // for fieldName
+ #include <stdio.h> // for sprintf
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ #include "windttst.h"
+ #endif
+ 
+@@ -2374,7 +2374,7 @@ void DateFormatTest::TestZTimeZoneParsin
+ 
+ void DateFormatTest::TestHost(void)
+ {
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+     Win32DateTimeTest::testLocales(this);
+ #endif
+ }
+--- origsrc/icu/source/test/intltest/uobjtest.cpp	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/test/intltest/uobjtest.cpp	2016-10-04 09:33:58.358460300 -0400
+@@ -384,13 +384,11 @@ void UObjectTest::testIDs()
+     TESTCLASSID_FACTORY(IndianCalendar, Calendar::createInstance(Locale("@calendar=indian"), status));
+     TESTCLASSID_FACTORY(ChineseCalendar, Calendar::createInstance(Locale("@calendar=chinese"), status));
+     TESTCLASSID_FACTORY(TaiwanCalendar, Calendar::createInstance(Locale("@calendar=roc"), status));
+-#if U_PLATFORM_HAS_WIN32_API
+-    TESTCLASSID_FACTORY(Win32DateFormat, DateFormat::createDateInstance(DateFormat::kFull, Locale("@compat=host")));
+ #if U_PLATFORM_USES_ONLY_WIN32_API
++    TESTCLASSID_FACTORY(Win32DateFormat, DateFormat::createDateInstance(DateFormat::kFull, Locale("@compat=host")));
+     TESTCLASSID_FACTORY(Win32NumberFormat, NumberFormat::createInstance(Locale("@compat=host"), status));
+ #endif
+ #endif
+-#endif
+ 
+ #if !UCONFIG_NO_BREAK_ITERATION && !UCONFIG_NO_FILE_IO
+     /* TESTCLASSID_ABSTRACT(BreakIterator); No staticID!  */
+--- origsrc/icu/source/test/intltest/windttst.cpp	2016-09-13 17:37:40.000000000 -0400
++++ src/icu/source/test/intltest/windttst.cpp	2016-10-04 09:33:58.358460300 -0400
+@@ -13,7 +13,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #if !UCONFIG_NO_FORMATTING
+ 
+@@ -193,4 +193,4 @@ void Win32DateTimeTest::testLocales(Test
+ 
+ #endif /* #if !UCONFIG_NO_FORMATTING */
+ 
+-#endif /* U_PLATFORM_HAS_WIN32_API */
++#endif /* U_PLATFORM_USES_ONLY_WIN32_API */
+--- origsrc/icu/source/test/intltest/windttst.h	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/test/intltest/windttst.h	2016-10-04 09:33:58.358460300 -0400
+@@ -16,7 +16,7 @@
+ 
+ #include "unicode/utypes.h"
+ 
+-#if U_PLATFORM_HAS_WIN32_API
++#if U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #if !UCONFIG_NO_FORMATTING
+ 
+@@ -38,6 +38,6 @@ private:
+ 
+ #endif /* #if !UCONFIG_NO_FORMATTING */
+ 
+-#endif // U_PLATFORM_HAS_WIN32_API
++#endif // U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #endif // __WINDTTST

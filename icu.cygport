@@ -1,6 +1,6 @@
 NAME="icu"
-VERSION=57.1
-RELEASE=1
+VERSION=58.1
+RELEASE=2
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
 
@@ -10,18 +10,26 @@ Unicode and Globalization support for software applications.  ICU is
 widely portable and gives applications the same results on all
 platforms and between C/C++ and Java software."
 
-SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
-# SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/_rc}-src.tgz"
+# SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
+SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/rc}-src.tgz"
 SRC_DIR="icu/source"
 
-TL_SVN_REV=40155
-PATCH_URI="http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-PATCHES/patch-16-putil?revision=${TL_SVN_REV}&view=co"
-# PATCH_URI+=" http://www.tug.org/svn/texlive/trunk/Build/source/libs/icu/icu-PATCHES/patch-17-cygwin-no-w32api?revision=${TL_SVN_REV}&view=co"
-PATCH_URI+=" my-patch-17-cygwin-no-w32api" # Fixed whitespace error.
-PATCH_URI+=" 54.1-implicit_declaration.patch"
+# These have been sent upstream via http://bugs.icu-project.org/trac/.
+PATCH_URI+=" digitlst.patch"	    # ticket #12773 58.1
+PATCH_URI+=" time.patch"	    # ticket #12774 58.1
+PATCH_URI+=" mmap.patch"	    # ticket #12778 58.1
+PATCH_URI+=" dirent.patch"	    # ticket #12781 58.1
+PATCH_URI+=" umutex.patch"	    # ticket #12783 58.1
+PATCH_URI+=" tzname.patch"	    # ticket #12784 59.1
+PATCH_URI+=" swapFileSepChar.patch" # ticket #12785 59.1
+PATCH_URI+=" wintz.patch"	    # ticket #12786 59.1
+PATCH_URI+=" utimer.patch"	    # ticket #12787 59.1
+PATCH_URI+=" getPlatform.patch"	    # ticket #12788 59.1
+PATCH_URI+=" langinfo.patch"	    # ticket #12790 59.1
+PATCH_URI+=" putil_cleanup.patch"   # ticket #12795
 
-PKG_NAMES="libicu57 libicu-devel icu-doc"
-libicu57_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*57.dll"
+PKG_NAMES="libicu58 libicu-devel icu-doc"
+libicu58_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*58.dll"
 libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
 	usr/include/ usr/lib/ usr/sbin/*.exe usr/share/man/ usr/share/icu/"
 icu_doc_CATEGORY="Doc"

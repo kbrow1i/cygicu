@@ -1,17 +1,14 @@
---- source/common/putil.cpp	(revision 40154)
-+++ source/common/putil.cpp	(working copy)
-@@ -41,6 +41,20 @@
+--- origsrc/icu/source/common/putil.cpp	2016-10-06 16:27:08.733989700 -0400
++++ src/icu/source/common/putil.cpp	2016-10-06 16:32:25.228266500 -0400
+@@ -43,6 +43,17 @@
  // Must be before any other #includes.
  #include "uposixdefs.h"
  
-+#if (U_PF_MINGW <= U_PLATFORM && U_PLATFORM <= U_PF_CYGWIN) && defined(__STRICT_ANSI__)
-+/* tzset isn't defined in strict ANSI on Cygwin and MinGW. */
++#if U_PLATFORM == U_PF_MINGW && defined __STRICT_ANSI__
++/* tzset isn't defined in strict ANSI on MinGW. */
 +#undef __STRICT_ANSI__
 +#endif
 +
-+/*
-+ * Cygwin with GCC requires inclusion of time.h after the above disabling strict asci mode statement.
-+ */
 +#include <time.h>
 +
 +#if !U_PLATFORM_USES_ONLY_WIN32_API
@@ -21,7 +18,19 @@
  /* include ICU headers */
  #include "unicode/utypes.h"
  #include "unicode/putil.h"
-@@ -102,21 +116,7 @@
+@@ -71,11 +82,6 @@
+ 
+ /* include system headers */
+ #if U_PLATFORM_USES_ONLY_WIN32_API
+-    /*
+-     * TODO: U_PLATFORM_USES_ONLY_WIN32_API includes MinGW.
+-     * Should Cygwin be included as well (U_PLATFORM_HAS_WIN32_API)
+-     * to use native APIs as much as possible?
+-     */
+ #   define WIN32_LEAN_AND_MEAN
+ #   define VC_EXTRALEAN
+ #   define NOUSER
+@@ -104,20 +110,6 @@
  #   include <sys/neutrino.h>
  #endif
  
@@ -30,7 +39,7 @@
 -#undef __STRICT_ANSI__
 -#endif
 -
- /*
+-/*
 - * Cygwin with GCC requires inclusion of time.h after the above disabling strict asci mode statement.
 - */
 -#include <time.h>
@@ -39,7 +48,6 @@
 -#include <sys/time.h>
 -#endif
 -
--/*
+ /*
   * Only include langinfo.h if we have a way to get the codeset. If we later
   * depend on more feature, we can test on U_HAVE_NL_LANGINFO.
-  *

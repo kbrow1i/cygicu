@@ -1,0 +1,37 @@
+--- origsrc/icu/source/common/umutex.cpp	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/common/umutex.cpp	2016-10-03 17:20:11.511725500 -0400
+@@ -39,16 +39,7 @@ static UMutex   globalMutex = U_MUTEX_IN
+ // Build time user mutex hook: #include "U_USER_MUTEX_CPP"
+ #include U_MUTEX_XSTR(U_USER_MUTEX_CPP)
+ 
+-#elif U_PLATFORM_HAS_WIN32_API
+-
+-//-------------------------------------------------------------------------------------------
+-//
+-//    Windows Specific Definitions
+-//
+-//        Note: Cygwin (and possibly others) have both WIN32 and POSIX.
+-//              Prefer Win32 in these cases.  (Win32 comes ahead in the #if chain)
+-//
+-//-------------------------------------------------------------------------------------------
++#elif U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ #if defined U_NO_PLATFORM_ATOMICS
+ #error ICU on Win32 requires support for low level atomic operations.
+--- origsrc/icu/source/common/umutex.h	2016-09-27 22:26:02.000000000 -0400
++++ src/icu/source/common/umutex.h	2016-10-03 17:27:39.391326800 -0400
+@@ -320,13 +320,7 @@ U_NAMESPACE_END
+ // #inlcude "U_USER_MUTEX_H"
+ #include U_MUTEX_XSTR(U_USER_MUTEX_H)
+ 
+-#elif U_PLATFORM_HAS_WIN32_API
+-
+-/* Windows Definitions.
+- *    Windows comes first in the platform chain.
+- *    Cygwin (and possibly others) have both WIN32 and POSIX APIs. Prefer Win32 in this case.
+- */
+-
++#elif U_PLATFORM_USES_ONLY_WIN32_API
+ 
+ /* For CRITICAL_SECTION */
+ 

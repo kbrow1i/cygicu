@@ -1,0 +1,11 @@
+--- origsrc/icu/source/common/putilimp.h	2016-06-15 14:58:17.000000000 -0400
++++ src/icu/source/common/putilimp.h	2016-10-03 17:00:58.214228200 -0400
+@@ -173,7 +173,7 @@ typedef size_t uintptr_t;
+  */
+ #ifdef U_HAVE_DIRENT_H
+     /* Use the predefined value. */
+-#elif U_PLATFORM_HAS_WIN32_API
++#elif U_PLATFORM_USES_ONLY_WIN32_API
+ #   define U_HAVE_DIRENT_H 0
+ #else
+ #   define U_HAVE_DIRENT_H 1
