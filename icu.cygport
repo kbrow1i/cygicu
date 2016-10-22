@@ -15,11 +15,6 @@ SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION/
 SRC_DIR="icu/source"
 
 # These have been sent upstream via http://bugs.icu-project.org/trac/.
-# PATCH_URI+=" digitlst.patch"	    # ticket #12773 58.1
-# PATCH_URI+=" time.patch"	    # ticket #12774 58.1
-# PATCH_URI+=" mmap.patch"	    # ticket #12778 58.1
-# PATCH_URI+=" dirent.patch"	    # ticket #12781 58.1
-# PATCH_URI+=" umutex.patch"	    # ticket #12783 58.1
 PATCH_URI+=" tzname.patch"	    # ticket #12784 59.1
 PATCH_URI+=" swapFileSepChar.patch" # ticket #12785 59.1
 PATCH_URI+=" wintz.patch"	    # ticket #12786 59.1
