@@ -1,5 +1,5 @@
 NAME="icu"
-VERSION=58.1
+VERSION=58.2
 RELEASE=1
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
