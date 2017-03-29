@@ -1,4 +1,6 @@
 *~
-icu-*-*/
-icu4c-*.tgz
+*.x86_64/
+*.i686/
+*.tgz
+*.tar.bz2
 save/

@@ -1,5 +1,5 @@
 NAME="icu"
-VERSION=58.2
+VERSION=59_0_1
 RELEASE=1
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
@@ -10,9 +10,15 @@ Unicode and Globalization support for software applications.  ICU is
 widely portable and gives applications the same results on all
 platforms and between C/C++ and Java software."
 
-SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
+# SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
 # SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/rc}-src.tgz"
-SRC_DIR="icu/source"
+# SRC_DIR="icu/source"
+
+SVN_URI="http://source.icu-project.org/repos/icu"
+SVN_TAG="milestone-59-0-1"
+inherit svn
+
+SRC_DIR="icu/icu4c/source"
 
 # These have been sent upstream via http://bugs.icu-project.org/trac/.
 PATCH_URI+=" tzname.patch"	    # ticket #12784 59.1
@@ -22,6 +28,7 @@ PATCH_URI+=" utimer.patch"	    # ticket #12787 59.1
 PATCH_URI+=" getPlatform.patch"	    # ticket #12788 59.1
 PATCH_URI+=" langinfo.patch"	    # ticket #12790 59.1
 PATCH_URI+=" putil_cleanup.patch"   # ticket #12795 59.1
+PATCH_URI+=" ufile.patch"   # ticket #12993 59.1
 
 PKG_NAMES="libicu58 libicu-devel icu-doc"
 libicu58_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*58.dll"
