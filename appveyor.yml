@@ -12,7 +12,7 @@ install:
 - if not exist %CACHE% mkdir %CACHE%
 - appveyor DownloadFile http://cygwin.com/%SETUP% -FileName %CACHE%\%SETUP%
 - echo Updating Cygwin and installing build dependencies
-- '%CACHE%\%SETUP% -gqnNdO -R "%CYGWIN_ROOT%" -s "%CYGWIN_MIRROR%" -l "%CACHE%" -P "cygport,doxygen,gettext-devel,pkg-config"'
+- '%CACHE%\%SETUP% -gqnNdO -R "%CYGWIN_ROOT%" -s "%CYGWIN_MIRROR%" -l "%CACHE%" -P "cygport,doxygen,gettext-devel,pkg-config,subversion"'
 - echo Install done
 cache:
 - C:\cache

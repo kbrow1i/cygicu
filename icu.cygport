@@ -28,7 +28,7 @@ PATCH_URI+=" utimer.patch"	    # ticket #12787 59.1
 PATCH_URI+=" getPlatform.patch"	    # ticket #12788 59.1
 PATCH_URI+=" langinfo.patch"	    # ticket #12790 59.1
 PATCH_URI+=" putil_cleanup.patch"   # ticket #12795 59.1
-PATCH_URI+=" ufile.patch"   # ticket #12993 59.1
+PATCH_URI+=" ufile.patch"           # ticket #12993 59.1
 
 PKG_NAMES="libicu58 libicu-devel icu-doc"
 libicu58_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*58.dll"
@@ -37,7 +37,7 @@ libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
 icu_doc_CATEGORY="Doc"
 icu_doc_CONTENTS="usr/share/doc/icu*"
 
-DEPEND="doxygen gettext-devel pkg-config"
+DEPEND="doxygen gettext-devel pkg-config subversion"
 
 NO_AUTOHEADER=1
 
