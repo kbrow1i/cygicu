@@ -1,22 +1,15 @@
 #!/bin/sh
-set -e
 
-echo fetching...
-cygport icu.cygport fetch
+exit_status=0
 
-echo prepping...
-cygport icu.cygport prep
+cygport icu.cygport fetch prep compile || exit_status=1
 
-echo compiling...
-cygport icu.cygport compile
-
-# echo installing...
-# cygport icu.cygport inst
-
-# echo packaging...
-# cygport icu.cygport pkg
-
-echo testing...
-cygport icu.cygport test
+if [ $exit_status -eq 0 ]
+then
+    cygport icu.cygport test
+    cygport icu.cygport inst pkg || exit_status=1
+fi
 
 tar -cJf artifact.tar.xz icu-*/dist icu-*/log
+
+exit $exit_status

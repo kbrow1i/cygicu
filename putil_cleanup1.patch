@@ -1,5 +1,5 @@
---- origsrc/icu/source/common/putil.cpp	2016-10-06 16:27:08.733989700 -0400
-+++ src/icu/source/common/putil.cpp	2016-10-06 16:32:25.228266500 -0400
+--- origsrc/icu/source/common/putil.cpp	2017-03-22 01:21:19.000000000 -0400
++++ src/icu/source/common/putil.cpp	2017-04-03 18:31:08.181977400 -0400
 @@ -43,6 +43,17 @@
  // Must be before any other #includes.
  #include "uposixdefs.h"
@@ -27,10 +27,10 @@
 -     * Should Cygwin be included as well (U_PLATFORM_HAS_WIN32_API)
 -     * to use native APIs as much as possible?
 -     */
+ #ifndef WIN32_LEAN_AND_MEAN
  #   define WIN32_LEAN_AND_MEAN
- #   define VC_EXTRALEAN
- #   define NOUSER
-@@ -104,20 +110,6 @@
+ #endif
+@@ -119,20 +125,6 @@ using namespace Microsoft::WRL::Wrappers
  #   include <sys/neutrino.h>
  #endif
  
