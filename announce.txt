@@ -1,21 +1,29 @@
-From cygwin-announce-icu-58.2-1 Sat Dec 10 13:14:42 2016
+From cygwin-announce-icu-59.1-1 Sat Dec 10 13:14:42 2016
 From: Ken Brown <kbrown@cornell.edu>
 To: cygwin-announce@cygwin.com
 Date: Sat, 10 Dec 2016 13:14:42 -0500
-Subject: icu 58.2-1
+Subject: icu 59.1-1
 
 The following packages have been uploaded to the Cygwin distribution:
 
-* libicu58-58.2-1
-* libicu-devel-58.2-1
-* icu-doc-58.2-1
+* libicu58-59.1-1
+* libicu-devel-59.1-1
+* icu-doc-59.1-1
 
 ICU is a mature, widely used set of C/C++ and Java libraries providing
 Unicode and Globalization support for software applications.  ICU is
 widely portable and gives applications the same results on all
 platforms and between C/C++ and Java software.
 
-This is an upstream bugfix release.
+This is an update to the latest upstream release.  There are major
+changes in this release that will make ICU easier to use but require
+changes in projects using ICU.  In particular, ICU now requires C++11,
+so packages using ICU may need to add -std=c++11 or -std=gnu++11 to
+CXXFLAGS.  See
+
+  http://site.icu-project.org/download/59
+
+for further details.
 
 Ken Brown
 Cygwin's ICU maintainer
