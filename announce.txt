@@ -1,12 +1,12 @@
-From cygwin-announce-icu-59.1-1 Sat Dec 10 13:14:42 2016
+From cygwin-announce-icu-59.1-1 Sun Apr 16 13:20:14 2017
 From: Ken Brown <kbrown@cornell.edu>
 To: cygwin-announce@cygwin.com
-Date: Sat, 10 Dec 2016 13:14:42 -0500
-Subject: icu 59.1-1
+Date: Sun, 16 Apr 2017 13:20:14 -0400
+Subject: test: icu-59.1-1
 
 The following packages have been uploaded to the Cygwin distribution:
 
-* libicu58-59.1-1
+* libicu59-59.1-1
 * libicu-devel-59.1-1
 * icu-doc-59.1-1
 
@@ -24,6 +24,10 @@ CXXFLAGS.  See
   http://site.icu-project.org/download/59
 
 for further details.
+
+I'm making this a test release to give other maintainers time to
+adapt to the changes.  If no problems are reported within a few weeks,
+I'll promote it to current.
 
 Ken Brown
 Cygwin's ICU maintainer
