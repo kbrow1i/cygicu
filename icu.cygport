@@ -1,5 +1,5 @@
 NAME="icu"
-VERSION=59.1
+VERSION=60.1
 RELEASE=1
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
@@ -19,8 +19,8 @@ SRC_DIR="icu/source"
 # inherit svn
 # SRC_DIR="icu/icu4c/source"
 
-PKG_NAMES="libicu59 libicu-devel icu-doc"
-libicu59_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*59.dll"
+PKG_NAMES="libicu60 libicu-devel icu-doc"
+libicu60_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*60.dll"
 libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
 	usr/include/ usr/lib/ usr/sbin/*.exe usr/share/man/ usr/share/icu/"
 icu_doc_CATEGORY="Doc"
