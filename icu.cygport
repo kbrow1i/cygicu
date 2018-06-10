@@ -71,3 +71,16 @@ src_test() {
 	cd ${B}
 	make check
 }
+
+# Getting two test failures on i686 only:
+
+# /home/kbrown/src/cygicu/icu-62.1-0.1.i686/src/icu/source/test/intltest/dcfmapts.cpp:848: FAIL: assertTrue() failed: (3.45679e+17==3.45679e+17) - (Are you missing data?)
+# File /home/kbrown/src/cygicu/icu-62.1-0.1.i686/src/icu/source/test/intltest/dcfmapts.cpp, Line 950, fd.getPluralOperand(PLURAL_OPERAND_I = 4866364374084476928
+
+# Bisection showed that test failures started with svn revision
+# r41269.  Since this only changed tests, I'll assume the problem is
+# with the tests.
+
+# Note for future bisections: Starting with r41306, icu failed to
+# build for many revisions.  Simply reverting that commit fixes the
+# build.
