@@ -1,15 +1,15 @@
-From cygwin-announce-icu-61.1-1 Sat Mar 31 11:55:14 2018
+From cygwin-announce-icu-62.1-1 Fri Jun 22 13:02:04 2018
 From: Ken Brown <kbrown@cornell.edu>
 To: cygwin-announce@cygwin.com
-Date: Sat, 31 Mar 2018 11:55:14 -0400
-Message-Id: <20180331115514.6756-1-kbrown@cornell.edu>
-Subject: icu 61.1-1
+Date: Fri, 22 Jun 2018 13:02:04 -0400
+Message-Id: <20180622130204.6184-1-kbrown@cornell.edu>
+Subject: icu 62.1-1
 
 The following packages have been uploaded to the Cygwin distribution:
 
-* libicu61-61.1-1
-* libicu-devel-61.1-1
-* icu-doc-61.1-1
+* libicu62-62.1-1
+* libicu-devel-62.1-1
+* icu-doc-62.1-1
 
 ICU is a mature, widely used set of C/C++ and Java libraries providing
 Unicode and Globalization support for software applications.  ICU is
