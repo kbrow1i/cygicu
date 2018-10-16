@@ -1,6 +1,6 @@
 NAME="icu"
 VERSION=63.1
-RELEASE=0.1
+RELEASE=1
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
 
@@ -10,9 +10,10 @@ Unicode and Globalization support for software applications.  ICU is
 widely portable and gives applications the same results on all
 platforms and between C/C++ and Java software."
 
-# SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
-SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/rc}-src.tgz"
+SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
+# SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/rc}-src.tgz"
 SRC_DIR="icu/source"
+PATCH_URI="0001-ICU-20214-Fix-namespace-error-on-Cygwin.patch"
 
 # SVN_URI="http://source.icu-project.org/repos/icu"
 # SVN_TAG="milestone-59-0-1"

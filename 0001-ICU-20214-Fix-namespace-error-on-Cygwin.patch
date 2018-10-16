@@ -1,0 +1,25 @@
+From 8f446f11ca346e0d0e635758cd1299db435dd118 Mon Sep 17 00:00:00 2001
+From: Ken Brown <kbrown@cornell.edu>
+Date: Tue, 16 Oct 2018 14:48:36 -0400
+Subject: [PATCH] ICU-20214 Fix namespace error on Cygwin
+
+---
+ icu4c/source/i18n/unicode/numberrangeformatter.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/icu4c/source/i18n/unicode/numberrangeformatter.h b/icu4c/source/i18n/unicode/numberrangeformatter.h
+index 50546839ed..62d6100545 100644
+--- a/icu4c/source/i18n/unicode/numberrangeformatter.h
++++ b/icu4c/source/i18n/unicode/numberrangeformatter.h
+@@ -185,7 +185,7 @@ class NumberRangeFormatterImpl;
+  * Export an explicit template instantiation. See datefmt.h
+  * (When building DLLs for Windows this is required.)
+  */
+-#if U_PF_WINDOWS <= U_PLATFORM && U_PLATFORM <= U_PF_CYGWIN && !defined(U_IN_DOXYGEN)
++#if U_PF_WINDOWS <= U_PLATFORM && U_PLATFORM < U_PF_CYGWIN && !defined(U_IN_DOXYGEN)
+ template struct U_I18N_API std::atomic<impl::NumberRangeFormatterImpl*>;
+ #endif
+ /** \endcond */
+-- 
+2.17.0
+
