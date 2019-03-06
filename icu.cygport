@@ -1,6 +1,6 @@
 NAME="icu"
-VERSION=63.1
-RELEASE=1
+VERSION=64.1
+RELEASE=0.1
 CATEGORY="Libs"
 HOMEPAGE="http://site.icu-project.org/"
 
@@ -10,18 +10,19 @@ Unicode and Globalization support for software applications.  ICU is
 widely portable and gives applications the same results on all
 platforms and between C/C++ and Java software."
 
-SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
+# SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-${VERSION//./_}-src.tgz"
 # SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/rc}-src.tgz"
+# SRC_URI="http://download.icu-project.org/files/icu4c/${VERSION/.1/rc}/icu4c-${VERSION/.1/rc2}-src.tgz"
+SRC_URI="https://github.com/unicode-org/icu/releases/download/release-64-rc2/icu4c-64rc2-src.tgz"
 SRC_DIR="icu/source"
-PATCH_URI="0001-ICU-20214-Fix-namespace-error-on-Cygwin.patch"
 
 # SVN_URI="http://source.icu-project.org/repos/icu"
 # SVN_TAG="milestone-59-0-1"
 # inherit svn
 # SRC_DIR="icu/icu4c/source"
 
-PKG_NAMES="libicu63 libicu-devel icu-doc"
-libicu63_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*63.dll"
+PKG_NAMES="libicu64 libicu-devel icu-doc"
+libicu64_CONTENTS="--exclude=usr/bin/cygicut*.dll usr/bin/cygicu*64.dll"
 libicu_devel_CONTENTS="usr/bin/*.exe usr/bin/icu-config usr/bin/cygicut*.dll \
 	usr/include/ usr/lib/ usr/sbin/*.exe usr/share/man/ usr/share/icu/"
 icu_doc_CATEGORY="Doc"
@@ -81,6 +82,8 @@ src_test() {
 # Bisection showed that test failures started with svn revision
 # r41269.  Since this only changed tests, I'll assume the problem is
 # with the tests.
+
+# This seems to be fixed in icu-64.
 
 # Note for future bisections: Starting with r41306, icu failed to
 # build for many revisions.  Simply reverting that commit fixes the
