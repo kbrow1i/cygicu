@@ -1,8 +1,15 @@
+From cygwin-announce-icu-64.2-1 Mon Apr 22 16:22:08 2019
+From: Ken Brown <kbrown@cornell.edu>
+To: cygwin-announce@cygwin.com
+Date: Mon, 22 Apr 2019 16:22:08 -0400
+Message-Id: <20190422162208.4489-1-kbrown@cornell.edu>
+Subject: icu 64.2-1
+
 The following packages have been uploaded to the Cygwin distribution:
 
-* libicu63-63.1-1
-* libicu-devel-63.1-1
-* icu-doc-63.1-1
+* libicu64-64.2-1
+* libicu-devel-64.2-1
+* icu-doc-64.2-1
 
 ICU is a mature, widely used set of C/C++ and Java libraries providing
 Unicode and Globalization support for software applications.  ICU is
@@ -11,7 +18,7 @@ platforms and between C/C++ and Java software.
 
 This is an update to the latest upstream release.  See
 
-  http://site.icu-project.org/download/63
+  http://site.icu-project.org/download/64
 
 for the changes since the previous release.
 
